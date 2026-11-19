@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    LAMCP Bridge for Rhino 7 (IronPython 2.7).
+    Same wire protocol as the Rhino 8 Lamcp_Bridge.ghuser (GET /health, POST /exec on 127.0.0.1:8765),
+    so the unchanged `lamcp` MCP server can talk to Rhino 7.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Lamcp.Bridge.R7</AssemblyName>
+    <RootNamespace>Lamcp.Bridge.R7</RootNamespace>
+    <TargetExt>.gha</TargetExt>
+    <PlatformTarget>x64</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Version>0.1.0</Version>
+    <RhinoSystemDir Condition="'$(RhinoSystemDir)' == ''">C:\Program Files\Rhino 7\System</RhinoSystemDir>
+    <GrasshopperDir Condition="'$(GrasshopperDir)' == ''">C:\Program Files\Rhino 7\Plug-ins\Grasshopper</GrasshopperDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="RhinoCommon">
+      <HintPath>$(RhinoSystemDir)\RhinoCommon.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Grasshopper">
+      <HintPath>$(GrasshopperDir)\Grasshopper.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="GH_IO">
+      <HintPath>$(GrasshopperDir)\GH_IO.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="BridgeDriver.py" LogicalName="Lamcp.Bridge.R7.BridgeDriver.py" />
+  </ItemGroup>
+</Project>
